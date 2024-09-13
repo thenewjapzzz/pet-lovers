@@ -1,0 +1,21 @@
+import Entrada from "../io/entrada";
+import Cliente from "../modelo/cliente";
+import Listagem from "./listagem";
+
+export default class Listagem10Clientes extends Listagem {
+    private clientes: Array<Cliente>;
+    constructor(clientes: Array<Cliente>) {
+        super();
+        this.clientes = clientes;
+    }
+
+    public listar(): void {
+        console.log(`\nLista de 10 clientes que mais consumiram produto ou serviços: `);
+        let clis: any = [];
+        this.clientes.forEach(cliente => {
+            clis.push( {nome: cliente.nome, quantidade:  cliente.getProdutoConsumidos.length + cliente.getServicosConsumidos.length, cpf: cliente.getCpf.getValor });
+        })
+        clis.sort((a: any, b:any) => b.quantidade - a.quantidade);
+        clis.splice(0, 10)
+    }
+}
