@@ -21,5 +21,17 @@ export default class Pet {
     public get getGenero(): string {
         return this.genero;
     }
-    
+
+    public alterarNome(nome: string) {
+        this.nome = nome;
+    }
+    public alterarTipo(tipo: string) {
+        this.tipo = tipo;
+    }
+    public alterarRaca(raca: string) {
+        this.raca = raca;
+    }
+    public alterarGenero(genero: string) {
+        this.genero = genero;
+    }
 }

@@ -5,7 +5,7 @@ import Apagar from "./apagar";
 export default class ApagarCliente extends Apagar {
     private clientes: Array<Cliente>;
     private entrada: Entrada;
-    constructor(clientes:  Array<Cliente>) {
+    constructor(clientes: Array<Cliente>) {
         super();
         this.clientes = clientes;
         this.entrada = new Entrada;

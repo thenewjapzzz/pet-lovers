@@ -1,11 +1,11 @@
 export default class Produto {
     public nome: string;
     public preco: number;
-    public quantiaddeConsumida: number;
+    public quantiadadeConsumida: number;
     constructor(nome: string, preco: number) {
         this.nome = nome;
         this.preco = preco;
-        this.quantiaddeConsumida = 0;
+        this.quantiadadeConsumida = 0;
     }
     
     public get getNome(): string {
@@ -17,10 +17,10 @@ export default class Produto {
     }
 
     public getQuantidadeConsumida(): number {
-        return this.quantiaddeConsumida;
+        return this.quantiadadeConsumida;
     }
 
     public incrementarQuantidadeConsumida(quantidade: number): void {
-        this.quantiaddeConsumida += quantidade;
+        this.quantiadadeConsumida += quantidade;
     }
 }
