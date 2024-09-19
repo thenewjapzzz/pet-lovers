@@ -20,7 +20,7 @@ export default class AtualizarPet extends Atualizar {
                 if(cliente.getPets.length == 0) {
                     console.log(`O cliente ${cliente.nome} ainda não possui pets.`);
                 }else {
-                    console.log(`O cliente ${cliente.nome} possuir os seguintes pets:`);
+                    console.log(`O cliente ${cliente.nome} possui os seguintes pets:`);
                     cliente.getPets.forEach(pet => {
                         console.log(`[${cliente.getPets.indexOf(pet)}] ${pet.getNome}`);
                     });
