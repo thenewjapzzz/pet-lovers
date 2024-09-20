@@ -47,4 +47,7 @@ export default class Cliente {
     public get getPets(): Array<Pet> {
         return this.pets;
     }
+    public adicionarPet(pet: Pet): void {
+        this.pets.push(pet);
+    }
 }

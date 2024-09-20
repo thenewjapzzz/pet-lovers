@@ -5,7 +5,6 @@ import Atualizar from "./atualizar";
 export default class AtualizarPet extends Atualizar {
     private clientes: Array<Cliente>;
     private entrada: Entrada;
-
     constructor(clientes: Array<Cliente>) {
         super();
         this.clientes = clientes;
