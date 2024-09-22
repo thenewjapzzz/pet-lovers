@@ -19,9 +19,9 @@ export default class ApagarServico extends Apagar {
 
         if(index !== 1) {
             this.servicos.splice(index, 1);
-            console.log(`Cadastro do serviço excluído :)\n`);
+            console.log(`Cadastro do serviço excluído!\n`);
         }else {
-            console.log(`Serviço não encontrado :(\n`)
+            console.log(`Serviço não encontrado!\n`)
         }
     }
 }

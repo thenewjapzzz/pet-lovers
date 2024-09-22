@@ -25,9 +25,9 @@ export default class AtualizarCliente extends Atualizar {
             cliente.nome = nome;
             cliente.nomeSocial = nomeSocial;
 
-            console.log(`\nCadastro atualizado com sucesso :)\n`);
+            console.log(`\nCadastro atualizado com sucesso!\n`);
         }else{
-            console.log(`Cliente não encontrado :(\n`);
+            console.log(`Cliente não encontrado!\n`);
         }
     }
 }

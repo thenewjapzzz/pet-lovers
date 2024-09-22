@@ -25,9 +25,9 @@ export default class CadastroPet extends Cadastro {
         if(cliente) {
             let pet = new Pet(nome, raca, genero, tipo);
             cliente.adicionarPet(pet);
-            console.log(`\nCadastro de pet concluído :)\n`);
+            console.log(`\nCadastro de pet concluído!\n`);
         }else{
-            console.log(`Cliente não enontrado :(\n`);
+            console.log(`Cliente não enontrado!\n`);
         }
     }
 };

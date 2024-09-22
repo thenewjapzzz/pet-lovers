@@ -29,15 +29,15 @@ export default class ApagarPet extends Apagar {
 
                 if(index !== -1) {
                     cliente.getPets.splice(index, 1);
-                    console.log(`Pet excluído :)\n`);
+                    console.log(`Pet excluído!\n`);
                 }else {
-                    console.log(`Pet não encontrado :(`);
+                    console.log(`Pet não encontrado!`);
                 }
             }else {
-                console.log(`Pet não encontrado :(`)
+                console.log(`Pet não encontrado!`)
             }
         }else{
-            console.log(`Pet não encontrado`)
+            console.log(`Cliente não encontrado`)
         }
     }
 }

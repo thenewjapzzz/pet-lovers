@@ -22,6 +22,6 @@ export default class AtualizarServico extends Atualizar {
         let preco = parseFloat(this.entrada.receberTexto(`Por favor, informe o novo valor do serviço`));
         this.servicos[indexServ].nome = nome;
         this.servicos[indexServ].preco = preco;
-        console.log(`\nServiço atualizado com sucesso`);
+        console.log(`\nServiço atualizado com sucesso!`);
     }
 }

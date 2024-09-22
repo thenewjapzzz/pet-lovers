@@ -18,6 +18,6 @@ export default class CadastroServico extends Cadastro {
 
         let servico = new Servico(nome, preco);
         this.servicos.push(servico);
-        console.log(`\nCadastro de serviço concluído :)\n`);
+        console.log(`\nCadastro de serviço concluído!\n`);
     }
 }

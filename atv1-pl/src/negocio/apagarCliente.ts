@@ -19,9 +19,9 @@ export default class ApagarCliente extends Apagar {
 
         if(index !== -1) {
             this.clientes.splice(index, 1);
-            console.log(`Cliente excluído com sucesso :)\n`);
+            console.log(`Cliente excluído com sucesso!\n`);
         }else {
-            console.log(`Cliente não encontrado :(\n`)
+            console.log(`Cliente não encontrado!\n`)
         }
     }
 }

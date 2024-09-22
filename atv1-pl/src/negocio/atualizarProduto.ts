@@ -22,6 +22,6 @@ export default class AtualizarProduto extends Atualizar {
         let preco = parseFloat(this.entrada.receberTexto(`Por favor, informe o novo valor do produto: `));
         this.produtos[indexProd].nome = nome;
         this.produtos[indexProd].preco = preco;
-        console.log(`\nProduto atualizado com sucesso`);
+        console.log(`\nProduto atualizado com sucesso!`);
     }
 };
