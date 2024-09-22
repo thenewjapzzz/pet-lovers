@@ -2,7 +2,7 @@ import Entrada from "../io/entrada";
 import Cliente from "../modelo/cliente";
 import Apagar from "./apagar";
 
-export default class ApagarPets extends Apagar {
+export default class ApagarPet extends Apagar {
     private clientes: Array<Cliente>;
     private entrada: Entrada;
 

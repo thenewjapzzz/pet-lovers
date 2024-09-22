@@ -4,12 +4,10 @@ import Pet from "../modelo/pets";
 import Cadastro from "./cadastro";
 
 export default class CadastroPet extends Cadastro {
-    private pets: Array<Pet>;
     private clientes: Array<Cliente>;
     private entrada: Entrada;
-    constructor(pets: Array<Pet>, clientes: Array<Cliente>) {
+    constructor( clientes: Array<Cliente>) {
         super();
-        this.pets = pets;
         this.clientes = clientes;
         this.entrada = new Entrada();
     }

@@ -14,7 +14,7 @@ export default class Listagem10Clientes extends Listagem {
         this.clientes.forEach(cliente => {
             clis.push({
                 nome: cliente.nome,
-                quantidade: cliente.getProdutoConsumidos.length + cliente.getServicosConsumidos.length,
+                quantidade: cliente.getProdutosConsumidos.length + cliente.getServicosConsumidos.length,
                 cpf: cliente.getCpf.getValor
             })  
         })

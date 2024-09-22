@@ -24,7 +24,7 @@ export default class Listagem5Clientes extends Listagem {
 
         // Consumo de produtos
         this.clientes.forEach(cliente => {
-            const valorProdutos = cliente.getProdutoConsumidos.reduce((total, produto) => total + produto.getPreco, 0);
+            const valorProdutos = cliente.getProdutosConsumidos.reduce((total, produto) => total + produto.getPreco, 0);
             clientesValor.set(cliente, valorProdutos);
         });
 

@@ -1,18 +1,16 @@
 {
-  "name": "atv1-pl",
+  "name": "c4p",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "out/app/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "keywords": [],
-  "description": "",
-  "devDependencies": {
-    "typescript": "^5.6.2"
-  },
   "dependencies": {
+    "@types/node": "^18.11.9",
+    "@types/prompt-sync": "^4.2.0",
     "prompt-sync": "^4.2.0"
   }
 }
