@@ -1,9 +1,0 @@
-{
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontSize": 14,
-    "editor.lineHeight": 1.5,
-    "editor.rulers": [80, 120],
-    "workbench.startupEditor": "newUntitledFile",
-    "editor.renderLineHighlight": "gutter",
-    "explorer.compactFolders": false,
-}
