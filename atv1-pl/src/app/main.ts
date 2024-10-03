@@ -104,7 +104,7 @@ function menuProdutos() {
     console.log(`6 - Listar produtos consumidos por cliente`);
     console.log(`0 - Voltar ao menu principal`);
 
-    let opcao = entrada.receberNumero(`Escolha uma opção:`);
+    let opcao = entrada.receberNumero(`Escolha uma opção: `);
     switch (opcao) {
         case 1:
             new CadatroProduto(empresa.getProdutos).cadastrar();
@@ -165,7 +165,7 @@ function menuListagem() {
     console.log(`3 - Listar os serviços ou produtos mais consumidos`);
     console.log(`0 - Voltar ao menu principal`)
 
-    let opcao = entrada.receberNumero(`Escolha uma opção`);
+    let opcao = entrada.receberNumero(`Escolha uma opção: `);
     switch (opcao) {
         case 1:
             new Listagem5Clientes(empresa.getCliente, empresa.getServicos, empresa.getProdutos).listar();
@@ -183,14 +183,35 @@ function menuListagem() {
     };
 };
 
+function menuPedir() {
+    console.log(`\nMenu Pedir:`);
+    console.log(`1 - Pedir produto`);
+    console.log(`2 - Pedir serviço`);
+
+    let opcao = entrada.receberNumero(`Escolha uma opção: `);
+    switch (opcao) {
+        case 1:
+            new PedirProduto(empresa.getProdutos, empresa.getCliente).pedir();
+            break;
+        case 2:
+            new PedirServico(empresa.getServicos, empresa.getCliente).pedir();
+            break;
+        case 0:
+            return;
+        default:
+            console.log(`Opção inválida`)
+    }
+}
+
 while (execucao) {
     console.log(`\nBem-vindo ao sistema de geriamento de pet shop!`);
     console.log(`Escolha uma das opções:`);
     console.log(`1 - Clientes`);
-    console.log(`2 - Serviçõs`);
+    console.log(`2 - Serviços`);
     console.log(`3 - Produtos`);
     console.log(`4 - Pets`);
     console.log(`5 - Listagem`);
+    console.log(`6 - Pedir`)
     console.log(`0 - Sair`);
 
     let opcao = entrada.receberNumero(`Escolha uma opção: `);
@@ -209,6 +230,9 @@ while (execucao) {
             break;
         case 5:
             menuListagem();
+            break;
+        case 6:
+            menuPedir();
             break;
         case 0:
             execucao = false;

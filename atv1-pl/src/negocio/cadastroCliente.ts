@@ -7,6 +7,7 @@ import Cadastro from "./cadastro";
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>;
     private entrada: Entrada;
+
     constructor(clientes: Array<Cliente>) {
         super();
         this.clientes = clientes;
@@ -17,26 +18,41 @@ export default class CadastroCliente extends Cadastro {
         console.log(`\nInício do cadastro do cliente`);
         let nome = this.entrada.receberTexto(`Por favor, informe o nome do cliente: `);
         let nomeSocial = this.entrada.receberTexto(`Por favor, informe o nome social do cliente: `);
-        let valor = this.entrada.receberTexto(`Por favor, informe o número do cpf: `);
-        let data = this.entrada.receberTexto(`Por favor, informe a data de emissão do cpf, no padrão dd/mm/yyyy: `);
-        let partesData = data.split('/');
-        let ano = new Number(partesData[2].valueOf()).valueOf();
-        let mes = new Number(partesData[1].valueOf()).valueOf();
-        let dia = new Number(partesData[0].valueOf()).valueOf();
-        let dataEmissao = new Date(ano, mes, dia);
-        let cpf = new CPF(valor, dataEmissao);
+        let valorCpf = this.entrada.receberTexto(`Por favor, informe o número do CPF: `);
 
-        let valorRg = this.entrada.receberTexto(`Por favor, informe o número do rg: `);
-        let dataEmissaorg = this.entrada.receberTexto(`Por favor, informa a data de emissão do rg, no padão dd/mm/yyyy: `);
-        let partesDataRg = dataEmissaorg.split('/');
-        let anoRg = new Number(partesDataRg[2].valueOf()).valueOf();
-        let mesRg = new Number(partesDataRg[1].valueOf()).valueOf();
-        let diaRg = new Number(partesDataRg[0].valueOf()).valueOf();
-        let dataEmissaoRg = new Date(anoRg, mesRg, diaRg);
-        let rg = new RG(valorRg, dataEmissaoRg);
+        let data = this.entrada.receberTexto(`Por favor, informe a data de emissão do CPF, no padrão dd/mm/yyyy: `);
+        let partesData = data.split('/');
+        let ano = Number(partesData[2]);
+        let mes = Number(partesData[1]) 
+        let dia = Number(partesData[0]);
+        let cpf = new CPF(valorCpf, new Date(ano, mes, dia));
+
+        if (this.clienteCadastrado(cpf, null)) { // Passar null para RG, pois ainda não foi criado
+            console.log("Cliente já cadastrado com este CPF.");
+            return;
+        }
+
+        let valorRg = this.entrada.receberTexto(`Por favor, informe o número do RG: `);
+        let dataEmissaoRg = this.entrada.receberTexto(`Por favor, informe a data de emissão do RG, no padrão dd/mm/yyyy: `);
+        let partesDataRg = dataEmissaoRg.split('/');
+        let anoRg = Number(partesDataRg[2]);
+        let mesRg = Number(partesDataRg[1])
+        let diaRg = Number(partesDataRg[0]);
+        let rg = new RG(valorRg, new Date(anoRg, mesRg, diaRg));
+
+        if (this.clienteCadastrado(null, rg)) { // Passar null para CPF, pois já foi criado
+            console.log("Cliente já cadastrado com este RG.");
+            return;
+        }
 
         let cliente = new Cliente(nome, nomeSocial, cpf, rg);
         this.clientes.push(cliente);
         console.log(`\nCadastro concluído!\n`);
+    }
+
+    private clienteCadastrado(cpf: CPF | null, rg: RG | null): boolean {
+        return this.clientes.some(cliente => 
+            (cpf && cliente.getCpf === cpf) || (rg && cliente.getRgs.includes(rg))
+        );
     }
 }

@@ -1,6 +1,8 @@
 import Cliente from "./cliente";
+import CPF from "./cpf";
 import Pet from "./pets";
 import Produto from "./produto";
+import RG from "./rg";
 import Servico from "./servico.";
 
 export default class Empresa {
@@ -25,5 +27,13 @@ export default class Empresa {
     }
     public get getPets(){
         return this.pets
+    }
+
+    public verificarCpfExistente(cpf: CPF): boolean {
+        return this.clientes.some(cliente => cliente.getCpf === cpf);
+    }
+
+    public verificarRgExistente(rg: RG): boolean {
+        return this.clientes.some(cliente => cliente.getRgs.includes(rg))
     }
 }
