@@ -14,7 +14,28 @@ function Home() {
           <button className="cta-button">Conheça nossos serviços</button>
         </div>
       </header>
-      
+
+    <section className="products-section">
+        <h2>Nossos Produtos</h2>
+        <div className="products-container">
+            <div className="product-card">
+            <img src="URL_DA_IMAGEM_1" alt="Ração Premium" className="product-image" />
+            <h3>Ração Premium</h3>
+            <p>Ração de alta qualidade para garantir a saúde e o bem-estar do seu pet.</p>
+            </div>
+            <div className="product-card">
+            <img src="URL_DA_IMAGEM_2" alt="Brinquedos Interativos" className="product-image" />
+            <h3>Brinquedos Interativos</h3>
+            <p>Brinquedos que estimulam a mente e entretêm seu pet por horas.</p>
+            </div>
+            <div className="product-card">
+            <img src="URL_DA_IMAGEM_3" alt="Camas Confortáveis" className="product-image" />
+            <h3>Camas Confortáveis</h3>
+            <p>Camas macias e aconchegantes para o descanso perfeito do seu pet.</p>
+            </div>
+        </div>
+    </section>
+ 
       <section className="services-section">
         <h2>Nossos Serviços</h2>
         <div className="services-container">

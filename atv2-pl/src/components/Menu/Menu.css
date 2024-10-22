@@ -1,6 +1,7 @@
 .navbar {
-    background-color: #ff6b35; 
+    background-color: #ffffff; 
     padding: 20px;
+    margin-left: 30px;
 }
 
 .container {
@@ -30,7 +31,7 @@
 }
 
 .nav-links li {
-    margin-left: 50px;
+    margin-left: 20px;
     font-weight: 400;
 }
 
@@ -40,9 +41,18 @@
     font-size: 18px;
     transition: color 0.3s;
     padding: 20px 30px;
+    position: relative;
 }
 
-.nav-link:hover, .nav-link.active {
-    background-color: #e55a2c;
-    border-radius: 8px;
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: #e55a2c; /* Cor do sublinhado */
+    transition: width 0.3s ease-in-out;
+    width: 100%; /* Sublinhado ocupa 100% do link ativo */
 }
+
