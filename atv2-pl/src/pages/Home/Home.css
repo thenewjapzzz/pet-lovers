@@ -1,0 +1,137 @@
+.hero-section {
+    background-image: url('/pet care-rafiki.png');
+    background-size: contain;
+    background-position: center right;
+    background-repeat: no-repeat; 
+    height: 500px;
+    padding: 0; 
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; 
+    margin: 0 20px;
+    max-width: 50%; 
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0; 
+}
+
+.hero-content p {
+    font-size: 30px;
+    margin: 20px 0; 
+}
+
+.cta-button {
+    background-color: #ff6b35;
+    border: none;
+    padding: 10px 20px; 
+    font-size: 16px; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 auto;
+}
+
+.cta-button:hover {
+    background-color: #e55a2c;
+}
+
+  .services-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f5f5f5;
+  }
+  
+  .services-section h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  .services-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+  }
+  
+  .service-card {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 30%;
+  }
+  
+  .service-card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .service-card p {
+    font-size: 16px;
+  }
+  
+  .about-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .about-section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .about-section p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .testimonials-section {
+    padding: 60px 20px;
+    background-color: #ffecd1;
+    text-align: center;
+  }
+  
+  .testimonials-section h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  .testimonials-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+  }
+  
+  .testimonials-container blockquote {
+    font-size: 18px;
+    font-style: italic;
+    max-width: 400px;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
