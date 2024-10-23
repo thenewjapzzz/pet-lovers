@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import Clientes from './pages/Clientes/Clientes';
-import Produtos from './pages/Produtos/Produtos';
-import Servicos from './pages/Servicos/Servicos';
+import Clientes from './pages/Clients/Clientes';
+import Produtos from './pages/Products/Produtos';
+import Servicos from './pages/Services/Servicos';
 import Pets from './pages/Pets/Pets';
 function App() {
   return (

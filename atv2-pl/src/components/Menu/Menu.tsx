@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
 const Menu: React.FC = () => {
-  const location = useLocation(); // Hook para obter a rota atual
+  const location = useLocation(); 
 
   return (
     <nav className="navbar">
