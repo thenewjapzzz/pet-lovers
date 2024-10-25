@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Cliente.css";
 
 // Dados fictícios
-const fakeData = [
+const initialData = [
   {
     id: "1",
     nome: "Guilherme",
@@ -72,20 +72,16 @@ const fakeData = [
 ];
 
 const Example = () => {
-  const [creatingRowIndex, setCreatingRowIndex] = useState<
-    number | undefined
-  >();
-  const [validationErrors, setValidationErrors] = useState<
-    Record<string, string | undefined>
-  >({});
+  const [data, setData] = useState(initialData);
+  const [creatingRowIndex, setCreatingRowIndex] = useState<number | undefined>();
+  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({});
   const theme = createTheme({
     typography: {
       fontFamily: "Poppins, sans-serif",
     },
   });
 
-  const columns = useMemo<MRT_ColumnDef[]>(
-    () => [
+  const columns = useMemo<MRT_ColumnDef[]>(() => [
       {
         accessorKey: "id",
         header: "ID",
@@ -99,8 +95,7 @@ const Example = () => {
           required: true,
           error: !!validationErrors.nome,
           helperText: validationErrors.nome,
-          onFocus: () =>
-            setValidationErrors({ ...validationErrors, nome: undefined }),
+          onFocus: () => setValidationErrors({ ...validationErrors, nome: undefined }),
         },
       },
       {
@@ -110,8 +105,7 @@ const Example = () => {
           required: true,
           error: !!validationErrors.nomeSocial,
           helperText: validationErrors.nomeSocial,
-          onFocus: () =>
-            setValidationErrors({ ...validationErrors, nomeSocial: undefined }),
+          onFocus: () => setValidationErrors({ ...validationErrors, nomeSocial: undefined }),
         },
       },
       {
@@ -121,8 +115,7 @@ const Example = () => {
           required: true,
           error: !!validationErrors.cpf,
           helperText: validationErrors.cpf,
-          onFocus: () =>
-            setValidationErrors({ ...validationErrors, cpf: undefined }),
+          onFocus: () => setValidationErrors({ ...validationErrors, cpf: undefined }),
         },
       },
       {
@@ -132,8 +125,7 @@ const Example = () => {
           required: true,
           error: !!validationErrors.rg,
           helperText: validationErrors.rg,
-          onFocus: () =>
-            setValidationErrors({ ...validationErrors, rg: undefined }),
+          onFocus: () => setValidationErrors({ ...validationErrors, rg: undefined }),
         },
       },
       {
@@ -143,8 +135,7 @@ const Example = () => {
           required: true,
           error: !!validationErrors.telefone,
           helperText: validationErrors.telefone,
-          onFocus: () =>
-            setValidationErrors({ ...validationErrors, telefone: undefined }),
+          onFocus: () => setValidationErrors({ ...validationErrors, telefone: undefined }),
         },
       },
       {
@@ -154,8 +145,7 @@ const Example = () => {
           required: true,
           error: !!validationErrors.create,
           helperText: validationErrors.create,
-          onFocus: () =>
-            setValidationErrors({ ...validationErrors, create: undefined }),
+          onFocus: () => setValidationErrors({ ...validationErrors, create: undefined }),
         },
       },
     ],
@@ -164,7 +154,7 @@ const Example = () => {
 
   const table = useMaterialReactTable({
     columns,
-    data: fakeData,
+    data,
     createDisplayMode: "row",
     editDisplayMode: "row",
     enableEditing: true,
@@ -172,6 +162,19 @@ const Example = () => {
     getRowId: (row) => row.id,
     onCreatingRowCancel: () => setValidationErrors({}),
     onEditingRowCancel: () => setValidationErrors({}),
+    onEditingRowSave: (row) => {
+      // Lógica para salvar as edições
+      const updatedData = data.map(item => 
+        item.id === row.id ? row : item
+      );
+      setData(updatedData);
+    },
+    onCreatingRowSave: (row) => {
+      // Lógica para adicionar um novo cliente
+      const newClient = { ...row, id: String(data.length + 1) }; // Gera um ID único
+      setData(prevData => [...prevData, newClient]);
+      setCreatingRowIndex(undefined); // Fecha o formulário de criação
+    },
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
         <Tooltip title="Editar">
@@ -179,39 +182,24 @@ const Example = () => {
             <EditIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title="Deletar">
           <IconButton
             color="error"
             onClick={() => {
-              if (
-                window.confirm("Tem certeza que deseja deletar esse usuário?")
-              ) {
-                // Lógica para deletar o usuário
-                console.log(`Deleted user with ID: ${row.original.id}`);
+              if (window.confirm("Tem certeza que deseja deletar esse usuário?")) {
+                setData(prevData => prevData.filter(item => item.id !== row.original.id));
               }
             }}
           >
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Add Subordinate">
+        <Tooltip title="Adicionar Subordinado">
           <IconButton
             onClick={() => {
               setCreatingRowIndex(table.getRowModel().rows.length);
               table.setCreatingRow(
-                createRow(
-                  table,
-                  {
-                    id: null!,
-                    nome: "",
-                    nomeSocial: "",
-                    cpf: "",
-                    rg: "",
-                    telefone: "",
-                    create: "",
-                  },
-                  -1
-                )
+                createRow(table, { id: "", nome: "", nomeSocial: "", cpf: "", rg: "", telefone: "", create: "" }, -1)
               );
             }}
           >
@@ -238,17 +226,19 @@ const Example = () => {
   return (
     <ThemeProvider theme={theme}>
       <Menu />
-      <div className="example-container">
-        <div className="table-wrapper">
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            sx={{ fontWeight: "bold", fontSize: "30px", color: '#333' }}
-          >
-            Gerenciamento de Clientes
-          </Typography>
-          <MaterialReactTable table={table} />
+      <div className="container-total">
+        <div className="example-container">
+          <div className="table-wrapper">
+            <Typography
+              variant="h5"
+              align="center"
+              gutterBottom
+              sx={{ fontWeight: "bold", fontSize: "30px", color: '#333' }}
+            >
+              Gerenciamento de Clientes
+            </Typography>
+            <MaterialReactTable table={table} />
+          </div>
         </div>
       </div>
     </ThemeProvider>

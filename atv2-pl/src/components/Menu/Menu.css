@@ -1,7 +1,7 @@
 .navbar {
     background-color: #ffffff; 
     padding: 10px;
-    margin-left: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .container {
