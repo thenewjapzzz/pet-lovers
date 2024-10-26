@@ -10,7 +10,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Menu from "../../components/Menu/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "./Servico.css";
 
 // Dados fictícios iniciais de produtos
 const initialData = [
