@@ -1,10 +1,5 @@
-import { useMemo, useState } from "react";
-import {
-  MaterialReactTable,
-  createRow,
-  type MRT_ColumnDef,
-  useMaterialReactTable,
-} from "material-react-table";
+import React, { useState } from "react";
+import { MaterialReactTable, createRow } from "material-react-table";
 import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,7 +8,6 @@ import Menu from "../../components/Menu/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Cliente.css";
 
-// Dados fictícios
 const initialData = [
   {
     id: "1",
@@ -73,155 +67,87 @@ const initialData = [
 
 const Example = () => {
   const [data, setData] = useState(initialData);
-  const [creatingRowIndex, setCreatingRowIndex] = useState<number | undefined>();
-  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({});
+  const [creatingRowIndex, setCreatingRowIndex] = useState(undefined);
+  const [validationErrors, setValidationErrors] = useState({});
+
   const theme = createTheme({
     typography: {
       fontFamily: "Poppins, sans-serif",
     },
   });
 
-  const columns = useMemo<MRT_ColumnDef[]>(() => [
-      {
-        accessorKey: "id",
-        header: "ID",
-        enableEditing: false,
-        size: 80,
-      },
-      {
-        accessorKey: "nome",
-        header: "Nome",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors.nome,
-          helperText: validationErrors.nome,
-          onFocus: () => setValidationErrors({ ...validationErrors, nome: undefined }),
-        },
-      },
-      {
-        accessorKey: "nomeSocial",
-        header: "Nome Social",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors.nomeSocial,
-          helperText: validationErrors.nomeSocial,
-          onFocus: () => setValidationErrors({ ...validationErrors, nomeSocial: undefined }),
-        },
-      },
-      {
-        accessorKey: "cpf",
-        header: "CPF",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors.cpf,
-          helperText: validationErrors.cpf,
-          onFocus: () => setValidationErrors({ ...validationErrors, cpf: undefined }),
-        },
-      },
-      {
-        accessorKey: "rg",
-        header: "RG",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors.rg,
-          helperText: validationErrors.rg,
-          onFocus: () => setValidationErrors({ ...validationErrors, rg: undefined }),
-        },
-      },
-      {
-        accessorKey: "telefone",
-        header: "Telefone",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors.telefone,
-          helperText: validationErrors.telefone,
-          onFocus: () => setValidationErrors({ ...validationErrors, telefone: undefined }),
-        },
-      },
-      {
-        accessorKey: "create",
-        header: "Cadastrado em",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors.create,
-          helperText: validationErrors.create,
-          onFocus: () => setValidationErrors({ ...validationErrors, create: undefined }),
-        },
-      },
-    ],
-    [validationErrors]
+  const columns = [
+    { accessorKey: "id", header: "ID", enableEditing: false, size: 80 },
+    {
+      accessorKey: "nome",
+      header: "Nome",
+      muiEditTextFieldProps: { required: true },
+    },
+    {
+      accessorKey: "nomeSocial",
+      header: "Nome Social",
+      muiEditTextFieldProps: { required: true },
+    },
+    {
+      accessorKey: "cpf",
+      header: "CPF",
+      muiEditTextFieldProps: { required: true },
+    },
+    {
+      accessorKey: "rg",
+      header: "RG",
+      muiEditTextFieldProps: { required: true },
+    },
+    {
+      accessorKey: "telefone",
+      header: "Telefone",
+      muiEditTextFieldProps: { required: true },
+    },
+    {
+      accessorKey: "create",
+      header: "Cadastrado em",
+      muiEditTextFieldProps: { required: true },
+    },
+  ];
+
+  const renderRowActions = ({ row }) => (
+    <Box sx={{ display: "flex", gap: "1rem" }}>
+      <Tooltip title="Editar">
+        <IconButton onClick={() => table.setEditingRow(row)}>
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Deletar">
+        <IconButton
+          color="error"
+          onClick={() => {
+            if (
+              window.confirm("Tem certeza que deseja deletar esse usuário?")
+            ) {
+              setData((prevData) =>
+                prevData.filter((item) => item.id !== row.original.id)
+              );
+            }
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
 
-  const table = useMaterialReactTable({
-    columns,
-    data,
-    createDisplayMode: "row",
-    editDisplayMode: "row",
-    enableEditing: true,
-    positionCreatingRow: creatingRowIndex,
-    getRowId: (row) => row.id,
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: (row) => {
-      // Lógica para salvar as edições
-      const updatedData = data.map(item => 
-        item.id === row.id ? row : item
-      );
-      setData(updatedData);
-    },
-    onCreatingRowSave: (row) => {
-      // Lógica para adicionar um novo cliente
-      const newClient = { ...row, id: String(data.length + 1) }; // Gera um ID único
-      setData(prevData => [...prevData, newClient]);
-      setCreatingRowIndex(undefined); // Fecha o formulário de criação
-    },
-    renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Editar">
-          <IconButton onClick={() => table.setEditingRow(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Deletar">
-          <IconButton
-            color="error"
-            onClick={() => {
-              if (window.confirm("Tem certeza que deseja deletar esse usuário?")) {
-                setData(prevData => prevData.filter(item => item.id !== row.original.id));
-              }
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Adicionar Subordinado">
-          <IconButton
-            onClick={() => {
-              setCreatingRowIndex(table.getRowModel().rows.length);
-              table.setCreatingRow(
-                createRow(table, { id: "", nome: "", nomeSocial: "", cpf: "", rg: "", telefone: "", create: "" }, -1)
-              );
-            }}
-          >
-            <PersonAddAltIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    ),
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Button
-        className="btn-register-client"
-        startIcon={<PersonAddAltIcon />}
-        variant="contained"
-        onClick={() => {
-          setCreatingRowIndex(table.getRowModel().rows.length);
-          table.setCreatingRow(true);
-        }}
-      >
-        Cadastrar Cliente
-      </Button>
-    ),
-  });
+  const renderTopToolbarCustomActions = () => (
+    <Button
+      startIcon={<PersonAddAltIcon />}
+      variant="contained"
+      className="btn-register-client"
+      onClick={() => {
+        setCreatingRowIndex(data.length);
+      }}
+    >
+      Cadastrar Cliente
+    </Button>
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -233,11 +159,30 @@ const Example = () => {
               variant="h5"
               align="center"
               gutterBottom
-              sx={{ fontWeight: "bold", fontSize: "30px", color: '#333' }}
+              sx={{ fontWeight: "bold", fontSize: "30px", color: "#333" }}
             >
               Gerenciamento de Clientes
             </Typography>
-            <MaterialReactTable table={table} />
+            <MaterialReactTable
+              columns={columns}
+              data={data}
+              renderRowActions={renderRowActions}
+              renderTopToolbarCustomActions={renderTopToolbarCustomActions}
+              editingMode="row"
+              onEditingRowSave={({ exitEditingMode, row, values }) => {
+                setData((old) =>
+                  old.map((item) => (item.id === row.id ? values : item))
+                );
+                exitEditingMode(); // Fecha o modo de edição após salvar
+              }}
+              onCreatingRowSave={(values) => {
+                setData((old) => [
+                  ...old,
+                  { ...values, id: String(old.length + 1) },
+                ]);
+                setCreatingRowIndex(undefined);
+              }}
+            />
           </div>
         </div>
       </div>

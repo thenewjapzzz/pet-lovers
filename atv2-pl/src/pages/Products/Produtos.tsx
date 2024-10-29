@@ -1,9 +1,5 @@
-import { useMemo, useState } from "react";
-import {
-  MaterialReactTable,
-  type MRT_ColumnDef,
-  useMaterialReactTable,
-} from "material-react-table";
+import React, { Component } from "react";
+import { MaterialReactTable } from "material-react-table";
 import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import EditIcon from "@mui/icons-material/Edit";
@@ -86,19 +82,21 @@ const initialData = [
   },
 ];
 
-const Produtos = () => {
-  const [data, setData] = useState(initialData); // Estado para armazenar dados fictícios
-  const [creatingRowIndex, setCreatingRowIndex] = useState<number | undefined>();
-  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({});
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, sans-serif",
+  },
+});
 
-  const theme = createTheme({
-    typography: {
-      fontFamily: "Poppins, sans-serif",
-    },
-  });
+class Produtos extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: initialData,
+      validationErrors: {},
+    };
 
-  const columns = useMemo<MRT_ColumnDef[]>(
-    () => [
+    this.columns = [
       {
         accessorKey: "id",
         header: "ID",
@@ -108,32 +106,23 @@ const Produtos = () => {
       {
         accessorKey: "nome",
         header: "Nome do Produto",
-        muiEditTextFieldProps: {
+        muiTableBodyCellEditTextFieldProps: {
           required: true,
-          error: !!validationErrors.nome,
-          helperText: validationErrors.nome,
-          onFocus: () => setValidationErrors({ ...validationErrors, nome: undefined }),
         },
       },
       {
         accessorKey: "preco",
         header: "Preço",
-        muiEditTextFieldProps: {
+        muiTableBodyCellEditTextFieldProps: {
           required: true,
-          error: !!validationErrors.preco,
-          helperText: validationErrors.preco,
-          onFocus: () => setValidationErrors({ ...validationErrors, preco: undefined }),
         },
       },
       {
         accessorKey: "quantidade",
         header: "Quantidade",
-        muiEditTextFieldProps: {
+        muiTableBodyCellEditTextFieldProps: {
           required: true,
           type: "number",
-          error: !!validationErrors.quantidade,
-          helperText: validationErrors.quantidade,
-          onFocus: () => setValidationErrors({ ...validationErrors, quantidade: undefined }),
         },
       },
       {
@@ -141,87 +130,93 @@ const Produtos = () => {
         header: "Data de Cadastro",
         enableEditing: false,
       },
-    ],
-    [validationErrors]
+    ];
+  }
+
+  handleEditRow = (row) => {
+    const updatedData = this.state.data.map((item) =>
+      item.id === row.original.id ? row.original : item
+    );
+    this.setState({ data: updatedData });
+  };
+
+  handleDeleteRow = (row) => {
+    if (window.confirm("Tem certeza que deseja deletar esse produto?")) {
+      const updatedData = this.state.data.filter(
+        (item) => item.id !== row.original.id
+      );
+      this.setState({ data: updatedData });
+    }
+  };
+
+  handleAddRow = () => {
+    const newProduct = {
+      id: (this.state.data.length + 1).toString(),
+      nome: "Novo Produto",
+      preco: "R$ 0,00",
+      quantidade: 0,
+      dataCadastro: new Date().toISOString().split("T")[0],
+    };
+    this.setState({ data: [...this.state.data, newProduct] });
+  };
+
+  renderRowActions = (row) => (
+    <Box sx={{ display: "flex", gap: "1rem" }}>
+      <Tooltip title="Editar">
+        <IconButton onClick={() => this.handleEditRow(row)}>
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Excluir">
+        <IconButton color="error" onClick={() => this.handleDeleteRow(row)}>
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
 
-  const table = useMaterialReactTable({
-    columns,
-    data,
-    createDisplayMode: "row",
-    editDisplayMode: "row",
-    enableEditing: true,
-    getRowId: (row) => row.id,
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: ({ row }) => {
-      // Lógica para salvar a edição localmente
-      setData((prevData) =>
-        prevData.map((item) => (item.id === row.id ? row : item))
-      );
-    },
-    onCreatingRowSave: ({ row }) => {
-      // Lógica para adicionar nova linha localmente
-      setData((prevData) => [...prevData, { ...row, id: String(prevData.length + 1) }]);
-      setCreatingRowIndex(undefined);
-    },
-    renderRowActions: ({ row }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Editar">
-          <IconButton onClick={() => table.setEditingRow(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Deletar">
-          <IconButton
-            color="error"
-            onClick={() => {
-              if (window.confirm("Tem certeza que deseja deletar esse produto?")) {
-                // Lógica para deletar o produto localmente
-                setData((prevData) => prevData.filter((item) => item.id !== row.original.id));
-              }
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    ),
-    renderTopToolbarCustomActions: () => (
-      <Button
-        className="btn-register-product"
-        startIcon={<AddShoppingCartIcon />}
-        variant="contained"
-        onClick={() => {
-          setCreatingRowIndex(data.length);
-          table.setCreatingRow(true);
-        }}
-      >
-        Cadastrar Produto
-      </Button>
-    ),
-  });
+  renderTopToolbarCustomActions = () => (
+    <Button
+      className="btn-register-product"
+      startIcon={<AddShoppingCartIcon />}
+      variant="contained"
+      onClick={this.handleAddRow}
+    >
+      Cadastrar Produto
+    </Button>
+  );
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Menu />
-      <div className="container-total">
-        <div className="example-container">
-          <div className="table-wrapper">
-            <Typography
-              variant="h5"
-              align="center"
-              gutterBottom
-              sx={{ fontWeight: "bold", fontSize: "30px", color: "#333" }}
-            >
-              Gerenciamento de Produtos
-            </Typography>
-            <MaterialReactTable table={table} />
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Menu />
+        <div className="container-total">
+          <div className="example-container">
+            <div className="table-wrapper">
+              <Typography
+                variant="h5"
+                align="center"
+                gutterBottom
+                sx={{ fontWeight: "bold", fontSize: "30px", color: "#333" }}
+              >
+                Gerenciamento de Produtos
+              </Typography>
+              <MaterialReactTable
+                columns={this.columns}
+                data={this.state.data}
+                enableEditing
+                getRowId={(row) => row.id}
+                renderRowActions={this.renderRowActions}
+                renderTopToolbarCustomActions={
+                  this.renderTopToolbarCustomActions
+                }
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </ThemeProvider>
-  );
-};
+      </ThemeProvider>
+    );
+  }
+}
 
 export default Produtos;

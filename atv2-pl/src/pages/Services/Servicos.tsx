@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import React, { Component } from "react";
 import {
   MaterialReactTable,
-  type MRT_ColumnDef,
+  MRT_ColumnDef,
   useMaterialReactTable,
 } from "material-react-table";
 import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
@@ -71,19 +71,16 @@ const initialData = [
   },
 ];
 
-const Servico = () => {
-  const [data, setData] = useState(initialData); // Estado para armazenar dados fictícios
-  const [creatingRowIndex, setCreatingRowIndex] = useState<number | undefined>();
-  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({});
+class Servico extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: initialData,
+      creatingRowIndex: undefined,
+      validationErrors: {},
+    };
 
-  const theme = createTheme({
-    typography: {
-      fontFamily: "Poppins, sans-serif",
-    },
-  });
-
-  const columns = useMemo<MRT_ColumnDef[]>(
-    () => [
+    this.columns = [
       {
         accessorKey: "id",
         header: "ID",
@@ -95,9 +92,12 @@ const Servico = () => {
         header: "Nome do Serviço",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors.nome,
-          helperText: validationErrors.nome,
-          onFocus: () => setValidationErrors({ ...validationErrors, nome: undefined }),
+          error: !!this.state.validationErrors.nome,
+          helperText: this.state.validationErrors.nome,
+          onFocus: () =>
+            this.setState({
+              validationErrors: { ...this.state.validationErrors, nome: undefined },
+            }),
         },
       },
       {
@@ -105,9 +105,12 @@ const Servico = () => {
         header: "Preço",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors.preco,
-          helperText: validationErrors.preco,
-          onFocus: () => setValidationErrors({ ...validationErrors, preco: undefined }),
+          error: !!this.state.validationErrors.preco,
+          helperText: this.state.validationErrors.preco,
+          onFocus: () =>
+            this.setState({
+              validationErrors: { ...this.state.validationErrors, preco: undefined },
+            }),
         },
       },
       {
@@ -115,9 +118,12 @@ const Servico = () => {
         header: "Descrição",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors.descricao,
-          helperText: validationErrors.descricao,
-          onFocus: () => setValidationErrors({ ...validationErrors, descricao: undefined }),
+          error: !!this.state.validationErrors.descricao,
+          helperText: this.state.validationErrors.descricao,
+          onFocus: () =>
+            this.setState({
+              validationErrors: { ...this.state.validationErrors, descricao: undefined },
+            }),
         },
       },
       {
@@ -125,87 +131,100 @@ const Servico = () => {
         header: "Data de Cadastro",
         enableEditing: false,
       },
-    ],
-    [validationErrors]
-  );
+    ];
 
-  const table = useMaterialReactTable({
-    columns,
-    data,
-    createDisplayMode: "row",
-    editDisplayMode: "row",
-    enableEditing: true,
-    getRowId: (row) => row.id,
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: ({ row }) => {
-      // Lógica para salvar a edição localmente
-      setData((prevData) =>
-        prevData.map((item) => (item.id === row.id ? row : item))
-      );
-    },
-    onCreatingRowSave: ({ row }) => {
-      // Lógica para adicionar nova linha localmente
-      setData((prevData) => [...prevData, { ...row, id: String(prevData.length + 1) }]);
-      setCreatingRowIndex(undefined);
-    },
-    renderRowActions: ({ row }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Editar">
-          <IconButton onClick={() => table.setEditingRow(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Deletar">
-          <IconButton
-            color="error"
-            onClick={() => {
-              if (window.confirm("Tem certeza que deseja deletar esse produto?")) {
-                // Lógica para deletar o produto localmente
-                setData((prevData) => prevData.filter((item) => item.id !== row.original.id));
-              }
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    ),
-    renderTopToolbarCustomActions: () => (
-      <Button
-        className="btn-register-product"
-        startIcon={<AddShoppingCartIcon />}
-        variant="contained"
-        onClick={() => {
-          setCreatingRowIndex(data.length);
-          table.setCreatingRow(true);
-        }}
-      >
-        Cadastrar Serviço
-      </Button>
-    ),
-  });
+    this.theme = createTheme({
+      typography: {
+        fontFamily: "Poppins, sans-serif",
+      },
+    });
+  }
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Menu />
-      <div className="container-total">
-        <div className="example-container">
-          <div className="table-wrapper">
-            <Typography
-              variant="h5"
-              align="center"
-              gutterBottom
-              sx={{ fontWeight: "bold", fontSize: "30px", color: "#333" }}
-            >
-              Gerenciamento de Serviços
-            </Typography>
-            <MaterialReactTable table={table} />
+  handleSaveRow = (row) => {
+    this.setState((prevState) => ({
+      data: prevState.data.map((item) =>
+        item.id === row.id ? row : item
+      ),
+      validationErrors: {},
+    }));
+  };
+
+  handleAddRow = (row) => {
+    this.setState((prevState) => ({
+      data: [...prevState.data, { ...row, id: String(prevState.data.length + 1) }],
+      creatingRowIndex: undefined,
+      validationErrors: {},
+    }));
+  };
+
+  handleDeleteRow = (id) => {
+    if (window.confirm("Tem certeza que deseja deletar esse produto?")) {
+      this.setState((prevState) => ({
+        data: prevState.data.filter((item) => item.id !== id),
+      }));
+    }
+  };
+
+  render() {
+    const { data } = this.state;
+
+    return (
+      <ThemeProvider theme={this.theme}>
+        <Menu />
+        <div className="container-total">
+          <div className="example-container">
+            <div className="table-wrapper">
+              <Typography
+                variant="h5"
+                align="center"
+                gutterBottom
+                sx={{ fontWeight: "bold", fontSize: "30px", color: "#333" }}
+              >
+                Gerenciamento de Serviços
+              </Typography>
+              <MaterialReactTable
+                columns={this.columns}
+                data={data}
+                createDisplayMode="row"
+                editDisplayMode="row"
+                enableEditing
+                getRowId={(row) => row.id}
+                renderRowActions={({ row }) => (
+                  <Box sx={{ display: "flex", gap: "1rem" }}>
+                    <Tooltip title="Editar">
+                      <IconButton onClick={() => this.handleSaveRow(row)}>
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Deletar">
+                      <IconButton
+                        color="error"
+                        onClick={() => this.handleDeleteRow(row.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                )}
+                renderTopToolbarCustomActions={() => (
+                  <Button
+                    className="btn-register-product"
+                    startIcon={<AddShoppingCartIcon />}
+                    variant="contained"
+                    onClick={() => {
+                      this.setState({ creatingRowIndex: data.length });
+                    }}
+                  >
+                    Cadastrar Serviço
+                  </Button>
+                )}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </ThemeProvider>
-  );
-};
+      </ThemeProvider>
+    );
+  }
+}
 
 export default Servico;
