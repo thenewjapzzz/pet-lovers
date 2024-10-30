@@ -1,0 +1,13 @@
+.example-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .table-wrapper {
+    margin-top: 20px;
+  }
+  
+  .btn-register-client {
+    background-color: #e49427 !important;
+  }
