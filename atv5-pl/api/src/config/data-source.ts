@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
-import { Empresa } from "../entity/company-model";
 import { Cliente } from "../entity/client-model";
 import { Servico } from "../entity/service-model";
 import { Produto } from "../entity/product-model";
 import { Pet } from "../entity/pet-model";
 import { Pedido } from "../entity/order-model";
+import { Empresa } from "../entity/company-model";
 
 dotenv.config();
 

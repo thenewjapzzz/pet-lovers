@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Empresa } from "./company-model";
 
+
 @Entity()
 export class Servico {
   @PrimaryGeneratedColumn()
