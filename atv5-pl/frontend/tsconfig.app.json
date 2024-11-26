@@ -20,7 +20,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Node.js support */
+    "types": ["node"] // Adicionado para suportar módulos Node.js
   },
   "include": ["src"]
 }
