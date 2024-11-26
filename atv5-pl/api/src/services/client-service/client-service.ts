@@ -97,7 +97,7 @@ export const deleteClientService = async (id: number) => {
 
         await clientRepository.remove(client);
 
-        return { message: "Client deleted successfully" }
+        return({ message: "Client deleted successfully" })
     }catch (error) {
         console.log("Error deleting client", error)
     }
