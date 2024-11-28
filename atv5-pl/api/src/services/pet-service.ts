@@ -1,20 +1,38 @@
+import { Empresa } from "../entity/company-model";
 import { AppDataSource } from "../config/data-source"
 import { Cliente } from "../entity/client-model"
 import { Pet } from "../entity/pet-model";
 
 // Função para cadastrar um pet vinculado a um cliente por CPF
-export const createPetService = async (cpf: string, nome: string, tipo: string, raca: string, genero: string) => {
+export const createPetService = async (
+    cpf: string,
+    nome: string,
+    tipo: string,
+    raca: string,
+    genero: string,
+    empresa_id: number
+) => {
     try {
         const clientRepository = AppDataSource.getRepository(Cliente);
-        const petRepository = AppDataSource.getRepository(Pet)
+        const petRepository = AppDataSource.getRepository(Pet);
+        const empresaRepository = AppDataSource.getRepository(Empresa);
 
         const client = await clientRepository.findOne({
             where: {
                 cpf,
-            }
-        })
+            },
+        });
         if (!client) {
-            throw new Error("Client not found")
+            throw new Error("Client not found");
+        }
+
+        const empresa = await empresaRepository.findOne({
+            where: {
+                id: empresa_id, 
+            },
+        });
+        if (!empresa) {
+            throw new Error("Company not found");
         }
 
         const newPet = petRepository.create({
@@ -23,13 +41,20 @@ export const createPetService = async (cpf: string, nome: string, tipo: string, 
             tipo,
             raca,
             genero,
+            empresa, 
         });
-        await petRepository.save(newPet)
-        return newPet;
-    }catch (error) {
-        console.log("Error in creating pet", error)
+
+        await petRepository.save(newPet);
+
+        return {
+            newPet,
+            clientCpf: client.cpf,
+        }
+    } catch (error) {
+        console.error("Error in creating pet:", error);
+        throw new Error("Error creating pet");
     }
-}
+};
 
 // Função para listar um pet por ID
 export const readPetServie = async (id: number) => {
@@ -40,7 +65,7 @@ export const readPetServie = async (id: number) => {
                 id,
             },
             relations: [
-                "client_id" // Relacionando com o ID do cliente
+                "client_id" 
             ]
         })
         if (!pet) {
@@ -53,29 +78,28 @@ export const readPetServie = async (id: number) => {
     }
 }
 
-// Função para listar todos os pets de um client
-export const getAllPetsByClientService = async (clientId: number) => {
+export const getAllPetsByCompanyService = async (empresaId: number) => {
     try {
         const petRepository = AppDataSource.getRepository(Pet);
-        
-        // Corrigido: usando 'cliente' na cláusula WHERE
+
         const pets = await petRepository.find({
             where: {
-                cliente: { id: clientId },  
+                empresa: { id: empresaId }, 
             },
-            relations: ["cliente"], // Relacionando o cliente completo ao pet
+            relations: ["cliente", "empresa"], 
         });
 
-        // Mapeando os pets para adicionar o nome do cliente
         return pets.map(pet => ({
             ...pet,
-            cliente_nome: pet.cliente ? pet.cliente.nome : "Desconhecido"
+            cliente_nome: pet.cliente ? pet.cliente.nome : "Desconhecido", 
+            cliente_cpf: pet.cliente ? pet.cliente.cpf : "Desconhecido",
+            empresa_nome: pet.empresa ? pet.empresa.nome : "Desconhecido", 
         }));
     } catch (error) {
-        console.log("Error listing all pets for client", error);
+        console.error("Error fetching pets for company", error);
+        throw new Error("Error fetching pets for company");
     }
 }
-
 
 // Função para atualizar pet
 export const updatePetService = async (id: number, updatedData: Partial<Pet>) => {

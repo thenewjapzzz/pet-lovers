@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Pet, columns } from "../../app/pet/columns"; 
+import { Pet, columns } from "../../app/pet/columns";
 import { DataTable } from "../../components/data-table-clients";
 import Menu from "../../components/menu/menu";
 import { Button } from "../../components/ui/button";
@@ -9,8 +9,14 @@ import PetRegisterModal from "../../components/modal/pet/modal-create-pet";
 
 async function getData(empresa_id: string): Promise<Pet[]> {
   try {
-    const response = await axios.get(`http://localhost:3000/pet/empresa/${empresa_id}`);
-    return response.data;
+    const response = await axios.get(
+      `http://localhost:3000/pets/empresa/${empresa_id}`
+    );
+    console.log(response)
+    return response.data.map((pet: any) => ({
+        ...pet,
+        cpf: pet.cliente ? pet.cliente.cpf : "",
+      }));
   } catch (error) {
     console.error("Erro ao buscar dados dos pets:", error);
     return [];
@@ -24,6 +30,7 @@ const PetsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [petToEdit, setPetToEdit] = useState<Pet | null>(null);
+  const [refresh, setRefresh] = useState(false); 
 
   useEffect(() => {
     const empresaId = localStorage.getItem("empresa_id");
@@ -42,7 +49,7 @@ const PetsPage = () => {
       setError("Empresa ID não encontrado.");
       setLoading(false);
     }
-  }, []);
+  }, [refresh]); 
 
   if (loading) {
     return <div>Loading...</div>;
@@ -55,22 +62,36 @@ const PetsPage = () => {
   const handleDelete = async (pet: Pet) => {
     const confirmDelete = window.confirm("Deseja mesmo excluir esse pet?");
     if (!confirmDelete) return;
-
+  
     try {
-      const response = await axios.delete(`http://localhost:3000/pet/${pet.id}`);
-      if (response.status === 200) {
-        setData(data.filter((item) => item.id !== pet.id));
+      const response = await axios.delete(
+        `http://localhost:3000/pet/${pet.id}`
+      );
+      if (response.status === 201) {
+        const empresaId = localStorage.getItem("empresa_id");
+        if (empresaId) {
+          const updatedPets = await getData(empresaId);
+          setData(updatedPets);
+        }
       }
     } catch (error) {
-      console.log("Error deleting pet", error);
+      console.error("Erro ao excluir pet", error);
       setError("Erro ao excluir pet");
     }
   };
-
-  const addPet = (newPet: Pet) => {
-    setData((prevData) => [...prevData, newPet]);
+  
+  const addPet = async (newPet: Pet) => {
+    try {
+      const empresaId = localStorage.getItem("empresa_id");
+      if (empresaId) {
+        setData((prevData) => [...prevData, newPet]);
+        setRefresh(!refresh); 
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar a lista de pets:", error);
+    }
   };
-
+  
   const handleEdit = (pet: Pet) => {
     setPetToEdit(pet);
     setIsEditModalOpen(true);
@@ -92,13 +113,25 @@ const PetsPage = () => {
         <div className="flex justify-end mb-4 text-ls">
           <Button onClick={() => setIsModalOpen(true)}>Adicionar Pet</Button>
         </div>
-        <DataTable columns={columns} data={data} onEdit={handleEdit} onDelete={handleDelete} />
+        <DataTable
+          columns={columns}
+          data={data}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </div>
       {isModalOpen && (
-        <PetRegisterModal setIsOpen={setIsModalOpen} addPet={addPet} />
+        <PetRegisterModal
+          setIsOpen={setIsModalOpen}
+          addPet={addPet}
+        />
       )}
       {isEditModalOpen && petToEdit && (
-        <PetEditModal setIsOpen={setIsEditModalOpen} editPet={editPet} petToEdit={petToEdit} />
+        <PetEditModal
+          setIsOpen={setIsEditModalOpen}
+          editPet={editPet}
+          pet={petToEdit}
+        />
       )}
     </>
   );

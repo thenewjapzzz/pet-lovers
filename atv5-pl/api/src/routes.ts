@@ -4,6 +4,7 @@ import { createClientController, deleteClientController, getAllClientController,
 import { createProductController, deleteProductController, getAllProductController, readProductController, updateProductController } from "./controllers/product-controller";
 import { createServiceController, deleteServiceController, getAllServiceController, readServiceController, updatedServiceController } from "./controllers/service-controller";
 import { createPetContoller, deletePetController, getAllPetsByClientController, readPetController, updatePetController } from "./controllers/pet-controller";
+import { createOrderController, getOrdersByEmpresaController } from "controllers/order-controller";
 
 const router = Router();
 
@@ -33,8 +34,12 @@ router.delete("/service/:id", deleteServiceController);
 // Rotas para pet
 router.post("/create-pet", createPetContoller);
 router.get("/pets/:id", readPetController);
-router.get("/pets/client/:client_id", getAllPetsByClientController)
+router.get("/pets/empresa/:empresa_id", getAllPetsByClientController)
 router.put("/pet/:id", updatePetController);
 router.delete("/pet/:id", deletePetController);
+
+// Rotas para pedido
+router.post("/create-order", createOrderController)
+router.get("/orders/empresa/:empresa_id", getOrdersByEmpresaController)
 
 export default router;

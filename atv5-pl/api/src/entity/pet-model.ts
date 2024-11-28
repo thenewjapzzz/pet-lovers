@@ -7,7 +7,9 @@ import {
   JoinColumn,
 } from "typeorm";
 import { Cliente } from "./client-model";
+import { Empresa } from "./company-model";
 
+@Entity()
 @Entity()
 export class Pet {
   @PrimaryGeneratedColumn()
@@ -15,7 +17,11 @@ export class Pet {
 
   @ManyToOne(() => Cliente, (cliente) => cliente.id)
   @JoinColumn({ name: "cliente_id" })
-  cliente!: Cliente
+  cliente: Cliente; 
+
+  @ManyToOne(() => Empresa, (empresa) => empresa.id) 
+  @JoinColumn({ name: "empresa_id" })
+  empresa: Empresa; 
 
   @Column({ type: "varchar", length: 255 })
   nome: string;
@@ -29,3 +35,4 @@ export class Pet {
   @Column({ type: "varchar", length: 10 })
   genero: string;
 }
+

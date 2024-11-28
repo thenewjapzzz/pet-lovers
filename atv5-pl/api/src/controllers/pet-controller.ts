@@ -1,13 +1,13 @@
 import { RequestHandler } from "express";
-import { createPetService, deletePetService, getAllPetsByClientService, readPetServie, updatePetService } from "../services/pet-service";
+import { createPetService, deletePetService, getAllPetsByCompanyService, readPetServie, updatePetService } from "../services/pet-service";
 
 export const createPetContoller: RequestHandler = async (req, res): Promise<void> => {
     try {
-        const { cpf, nome, tipo, raca, genero} = req.body;
+        const { cpf, nome, tipo, raca, genero, empresa_id } = req.body;
 
-        if (!cpf || !nome || !tipo || !raca || !genero) {
-            res.status(400).json({ error: "Missing required fields" })
-            return
+        if (!cpf || !nome || !tipo || !raca || !genero || !empresa_id) {
+            res.status(400).json({ error: "Missing required fields" });
+            return;
         }
 
         const newPet = await createPetService(
@@ -15,13 +15,14 @@ export const createPetContoller: RequestHandler = async (req, res): Promise<void
             nome,
             tipo,
             raca,
-            genero
-        )
-        res.status(201).json(newPet)
-    }catch (error: any) {
-        res.status(500).json( {error: error.message })
+            genero,
+            empresa_id // Pass empresa_id to the service
+        );
+        res.status(201).json(newPet);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
 export const readPetController: RequestHandler = async (req, res): Promise<void> => {
     try {
@@ -39,10 +40,10 @@ export const readPetController: RequestHandler = async (req, res): Promise<void>
     }
 }
 
-export const getAllPetsByClientController:  RequestHandler = async (req, res): Promise<void> => {
+export const getAllPetsByClientController: RequestHandler = async (req, res): Promise<void> => {
     try {
-        const { clientId } = req.params;
-        const pets = await getAllPetsByClientService(Number(clientId));
+        const { empresa_id } = req.params;
+        const pets = await getAllPetsByCompanyService(Number(empresa_id));
         res.status(201).json(pets);
     }catch (error: any) {
         res.status(500).json({ error: error.message });

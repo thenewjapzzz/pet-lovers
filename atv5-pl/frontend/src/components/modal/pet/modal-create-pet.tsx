@@ -7,9 +7,9 @@ import axios from "axios";
 interface PetData {
   id: number;
   nome: string;
-  idade: string;
+  tipo: string;
   raca: string;
-  descricao: string;
+  genero: string;
   cpf: string;
 }
 
@@ -22,10 +22,10 @@ const PetRegisterModal = ({ setIsOpen, addPet }: PetRegisterModalProps) => {
   const [petData, setPetData] = useState<PetData>({
     id: 0,
     nome: "",
-    idade: "",
+    tipo: "",
     raca: "",
-    descricao: "",
-    cpf: "", 
+    genero: "",
+    cpf: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,22 +46,25 @@ const PetRegisterModal = ({ setIsOpen, addPet }: PetRegisterModalProps) => {
         return;
       }
 
-      const petDataWithEmpresaAndCpf = {
+      const petDataWithEmpresa = {
         ...petData,
-        empresa_id,
+        empresa_id, 
       };
+      
+      console.log(petDataWithEmpresa)
 
-      const response = await axios.post(
+      const response = await axios.post<PetData>(
         "http://localhost:3000/create-pet",
-        petDataWithEmpresaAndCpf
+        petDataWithEmpresa
       );
 
       if (response.status === 201) {
-        addPet(response.data);
-        setIsOpen(false);
+        const newPet: PetData = response.data;
+        addPet(newPet); 
+        setIsOpen(false);  
       }
     } catch (error) {
-      console.log("Erro ao criar pet", error);
+      console.error("Erro ao registrar pet", error);
     }
   };
 
@@ -72,7 +75,7 @@ const PetRegisterModal = ({ setIsOpen, addPet }: PetRegisterModalProps) => {
         <Dialog.Content className="fixed inset-0 flex items-center justify-center z-10">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <Dialog.Title className="text-2xl font-semibold mb-4">
-              Cadastrar Pet
+              Registrar Pet
             </Dialog.Title>
 
             <form onSubmit={handleSubmit}>
@@ -99,10 +102,10 @@ const PetRegisterModal = ({ setIsOpen, addPet }: PetRegisterModalProps) => {
               <div className="mb-4">
                 <Input
                   type="text"
-                  name="idade"
-                  value={petData.idade}
+                  name="tipo"
+                  value={petData.tipo}
                   onChange={handleInputChange}
-                  placeholder="Idade"
+                  placeholder="Tipo"
                   required
                 />
               </div>
@@ -119,16 +122,16 @@ const PetRegisterModal = ({ setIsOpen, addPet }: PetRegisterModalProps) => {
               <div className="mb-4">
                 <Input
                   type="text"
-                  name="descricao"
-                  value={petData.descricao}
+                  name="genero"
+                  value={petData.genero}
                   onChange={handleInputChange}
-                  placeholder="Descrição"
+                  placeholder="Gênero"
                   required
                 />
               </div>
               <div className="mt-4 flex justify-end">
                 <Button type="submit" className="mr-3">
-                  Cadastrar
+                  Registrar
                 </Button>
                 <Button variant="outline" onClick={() => setIsOpen(false)}>
                   Fechar

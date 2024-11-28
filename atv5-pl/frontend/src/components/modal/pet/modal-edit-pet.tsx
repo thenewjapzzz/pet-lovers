@@ -7,9 +7,9 @@ import axios from "axios";
 interface PetData {
   id: number;
   nome: string;
-  idade: string;
+  tipo: string
   raca: string;
-  descricao: string;
+  genero: string,
   cpf: string;
 }
 
@@ -23,9 +23,9 @@ const PetEditModal = ({ setIsOpen, editPet, pet }: PetEditModalProps) => {
   const [petData, setPetData] = useState<PetData>({
     id: pet.id,
     nome: pet.nome,
-    idade: pet.idade,
+    tipo: pet.tipo,
     raca: pet.raca,
-    descricao: pet.descricao,
+    genero: pet.genero,
     cpf: pet.cpf,
   });
 
@@ -57,11 +57,11 @@ const PetEditModal = ({ setIsOpen, editPet, pet }: PetEditModalProps) => {
       };
 
       const response = await axios.put(
-        `http://localhost:3000/update-pet/${pet.id}`,
+        `http://localhost:3000/pet/${pet.id}`,
         petDataWithEmpresaAndCpf
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         editPet(response.data);
         setIsOpen(false);
       }
@@ -103,11 +103,11 @@ const PetEditModal = ({ setIsOpen, editPet, pet }: PetEditModalProps) => {
               </div>
               <div className="mb-4">
                 <Input
-                  type="text"
-                  name="idade"
-                  value={petData.idade}
+                  type="tipo"
+                  name=""
+                  value={petData.tipo}
                   onChange={handleInputChange}
-                  placeholder="Idade"
+                  placeholder="Tipo"
                   required
                 />
               </div>
@@ -124,10 +124,10 @@ const PetEditModal = ({ setIsOpen, editPet, pet }: PetEditModalProps) => {
               <div className="mb-4">
                 <Input
                   type="text"
-                  name="descricao"
-                  value={petData.descricao}
+                  name="genero"
+                  value={petData.genero}
                   onChange={handleInputChange}
-                  placeholder="Descrição"
+                  placeholder="G"
                   required
                 />
               </div>

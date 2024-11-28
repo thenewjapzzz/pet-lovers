@@ -5,6 +5,8 @@ import Home from './pages/home/home';
 import ClientPage from './pages/client/client';
 import ProductPage from './pages/products/products';
 import ServicePage from './pages/services/services';
+import PetsPage from './pages/pets/pets';
+import OrderPage from './pages/orders/orders';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +25,12 @@ const App: React.FC = () => {
       </Routes>
       <Routes>
         <Route path='/servicos' element={<ServicePage />} />
+      </Routes>
+      <Routes>
+        <Route path='/pets' element={<PetsPage />} />
+      </Routes>
+      <Routes>
+        <Route path='/pedido' element={<OrderPage />} />
       </Routes>
     </Router>
   );

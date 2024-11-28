@@ -2,16 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 
-export type Pet = {
-  id: number
-  nome: string
-  tipo: string
-  raca: string
-  genero: string
-  cpf: string
+export type Order = {
+    tipo: string
+    quantidade: number
+    preco: string
 }
 
-export const columns: ColumnDef<Pet>[] = [
+export const columns: ColumnDef<Order>[] = [
   {
     accessorKey: "nome",
     header: "Nome",
