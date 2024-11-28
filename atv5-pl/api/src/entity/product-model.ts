@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
-import { Empresa } from './company-model'
+import { Empresa } from '../entity/company-model'
 
 @Entity()
 export class Produto {
@@ -14,8 +14,8 @@ export class Produto {
     @Column({ type: 'varchar', length: 255 })
     nome: string
 
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
-    preco: number
+    @Column({ type: 'varchar', length: 255 }) 
+    preco: string
 
     @Column({ type: 'text' })
     descricao: string

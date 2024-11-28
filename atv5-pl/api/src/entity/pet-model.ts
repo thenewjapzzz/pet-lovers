@@ -15,7 +15,7 @@ export class Pet {
 
   @ManyToOne(() => Cliente, (cliente) => cliente.id)
   @JoinColumn({ name: "cliente_id" })
-  cliente_id!: number;
+  cliente!: Cliente
 
   @Column({ type: "varchar", length: 255 })
   nome: string;

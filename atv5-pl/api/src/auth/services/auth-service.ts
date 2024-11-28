@@ -8,16 +8,17 @@ export const auth = async (email: string, password: string) => {
   const empresa = await empresaRepository.findOneBy({ email });
 
   if (!empresa) {
-    throw new Error("Invalid CNPJ or password");
+    throw new Error("Invalid email or password");
   }
 
   const isPasswordValid = await bcrypt.compare(password, empresa.password);
   if (!isPasswordValid) {
-    throw new Error("Invalid CNPJ or password");
+    throw new Error("Invalid email or password");
   }
 
+
   const token = jwt.sign(
-    { id: empresa.id, cnpj: empresa.email },
+    { id: empresa.id, email: empresa.email,}, 
     process.env.JWT_SECRET as string,
     {
       expiresIn: "1h",

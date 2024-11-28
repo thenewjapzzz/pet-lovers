@@ -6,7 +6,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { Empresa } from "./company-model";
+import { Empresa } from "../entity/company-model";
+
 
 
 @Entity()
@@ -21,8 +22,8 @@ export class Servico {
   @Column({ type: "varchar", length: 255 })
   nome: string;
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
-  preco: number;
+  @Column({ type: 'varchar', length: 255 }) 
+  preco: string
 
   @Column({ type: "text" })
   descricao: string;
