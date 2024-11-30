@@ -22,8 +22,7 @@
 ## Parte1 *Sistema CLI* 1️⃣
 <p>
     <a href="#tec">Tecnologia</a> | 
-    <a href="#backlog">Backlog</a> | 
-    <a href="#manual">Manual de Usuário</a> 
+    <a href="#manual">Executar</a> 
 </p>
 
 ## :pushpin: Sobre o desafio
@@ -49,7 +48,7 @@ O primeiro projeto da C4P, chamado PetLovers (PL), é um sistema do tipo CLI (Co
 
 <span id="manual">
 
-## :scroll: Para executar:
+## :scroll: Executar
 
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
@@ -83,8 +82,7 @@ node out/app/main.js
   
 <p>
     <a href="#tec2">Tecnologia</a> | 
-    <a href="#backlog2">Backlog</a> | 
-    <a href="#manual2">Manual de Usuário</a> 
+    <a href="#manual2">Executar</a>
 </p>
 
 ## :pushpin: Sobre o desafio
@@ -113,7 +111,7 @@ node out/app/main.js
 
 <span id="manual2">
 
-## :scroll: Para executar:
+## :scroll: Executar
 
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
@@ -146,9 +144,8 @@ npm run dev
 ## Parte3 *Incrementando Hooks ao Sistema* 3️⃣
   
 <p>
-    <a href="#tec3">Tecnologia</a> | 
-    <a href="#backlog3">Backlog</a> | 
-    <a href="#manual3">Manual de Usuário</a> 
+    <a href="#tec3">Tecnologia</a> | | 
+    <a href="#manual3">Executar</a>
 </p>
 
 ## :pushpin: Sobre o desafio
@@ -175,7 +172,7 @@ npm run dev
 
 <span id="manual3">
 
-## :scroll: Para executar:
+## :scroll: Executar
 
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
@@ -208,9 +205,8 @@ npm run dev
 ## Parte4 *Integração do Back-end com o Front-end* 4️⃣
   
 <p>
-    <a href="#tec4">Tecnologia</a> | 
-    <a href="#backlog4">Backlog</a> | 
-    <a href="#manual4">Manual de Usuário</a> 
+    <a href="#tec4">Tecnologia</a> |  
+    <a href="#manual4">Executar</a> 
 </p>
 
 ## :pushpin: Sobre o desafio
@@ -244,7 +240,7 @@ npm run dev
 
 <span id="manual4">
 
-## :scroll: Manual do Usuário
+## :scroll: Executar
 
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
@@ -263,7 +259,7 @@ cd atv4-pl
   
 <p>
     <a href="#tec5">Tecnologia</a> | 
-    <a href="#manual5">Manual de Usuário</a> 
+    <a href="#manual5">Executar</a> 
 </p>
 
 ## :pushpin: Sobre o desafio
@@ -287,7 +283,7 @@ cd atv4-pl
 
 <span id="manual5">
 
-## :scroll: Manual do Usuário
+## :scroll: Executar
 
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
