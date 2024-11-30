@@ -19,7 +19,7 @@
 
 <span id="atividades1">
 
-## Parte1 *Sistema CLI* 1️⃣
+## Parte1 *Sistema por Terminal* 1️⃣
 <p>
     <a href="#tec">Tecnologia</a> | 
     <a href="#manual">Executar</a> 
