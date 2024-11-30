@@ -1,7 +1,7 @@
 
 <div align="center" id=topo>
 
-<h1> Sistema de Atendimento para PetShop </h1> 
+<h1> 🐱 Sistema de Atendimento para PetShop 🐶 </h1> 
   
 > Pet Lovers project from the subject: Programming Techniques, ministered by teacher: Gerson Penha
 
@@ -19,7 +19,6 @@
 <br>
 
 <span id="req">
-  
 
 <span id="atividades1">
 
@@ -31,10 +30,9 @@
 </p>
 
 ## :pushpin: Sobre o desafio
-Você é um empreendedor inovador e um engenheiro de software talentoso. Aproveitando suas habilidades técnicas e seu conhecimento sobre o crescente mercado de e-commerce de produtos para pets, você decidiu fundar uma empresa especializada no desenvolvimento de sistemas para o gerenciamento de lojas nesses segmentos. Assim nasceu a Computer4Pet (C4P).
-O principal objetivo da C4P é criar soluções tecnológicas voltadas para e-commerce, pet shops e clínicas veterinárias. O primeiro projeto a receber investimento foi um sistema do tipo CLI (Command-Line Interface), nomeado PetLovers (PL). O PetLovers foi projetado para ajudar no gerenciamento de pet shops e clínicas veterinárias.
-Embora a primeira versão do software tenha sido desenvolvida por uma empresa especializada, infelizmente, o trabalho não atendeu às expectativas. Agora, a responsabilidade de finalizar o projeto e corrigir as falhas ficou nas suas mãos, com o objetivo de evitar maiores prejuízos e entregar uma solução de qualidade
-<br>
+ Você é um empreendedor e também é um engenheiro de software formidável. Ao unir suas habilidades, junto com as informações sobre o crescimento do comercio eletrônico de produtos para pets e pet shops, você decidiu criar uma empresa especializada no desenvolvimento de sistemas para gerenciamento de lojas nestes segmentos. 
+ Assim surgiu a tua empresa, a Computer4Pet (C4P). O objetivo da C4P é desenvolver sistemas para atender, lojas de comercio eletrônico, pet shops e clínicas veterinárias em geral. O primeiro projeto que recebeu investimento foi um sistema do tipo CLI (Command-Line Interface). O sistema foi batizado como PetLovers (PL). O PL foi pensando para gerenciar pet shops e/ou clínicas veterinárias. A primeira versão do software foi desenvolvida por uma “software house” – empresa especializada no desenvolvimento de software por encomenda. Contudo, infelizmente a empresa não fez um bom trabalho. Agora resta a você terminar o serviço e evitar um prejuízo maior.
+
   
 <span id="tec">
 
@@ -59,7 +57,7 @@ Embora a primeira versão do software tenha sido desenvolvida por uma empresa es
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
 ~~~
-git clone https://github.com/b4hia/PetLovers-PL/atv1-pl.git 
+git clone https://github.com/thenewjapzzz/pet-lovers.git
 ~~~
     
 - entre no clone 
@@ -98,11 +96,6 @@ node out/app/main.js
   
 <br>
 
-> 🔗 **Link** <br>
-> - Documento de apoio da atividade2: [Clique para visualizar](https://github.com/b4hia/PetLovers-PL/tree/main/documents/atvii-pl.pdf)
-
-<br>
-
 <span id="tec2">
 
 ## 🔌 Tecnologias Utilizadas
@@ -119,17 +112,6 @@ node out/app/main.js
 
 <span id="backlog2">
 
-## 🌱 Backlog do Produto *Atividade2*
-
- #### Épicos (Requisitos) 
-- [x] Desenvolver todas as interfaces HTML.
-- [x] Não é nescessário integração com o back-end.
-- [x] Utilizar as bibliotecas Bootstrap e React.
-- [x] Todas os componentes criados com react devem ser componentes de classe.
-- [x] O Design precisa ser responsivo.
-
-
-
 → [Voltar ao topo](#topo)
 
 <br>
@@ -141,7 +123,7 @@ node out/app/main.js
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
 ~~~
-git clone https://github.com/b4hia/PetLovers-PL/atv2-pl.git 
+git clone https://github.com/thenewjapzzz/pet-lovers.git
 ~~~
     
 - entre no clone 
@@ -156,12 +138,12 @@ cd src
 
 - instale os pacotes
 ~~~
-npm i
+npm install
 ~~~
 
 - rode a aplicação
 ~~~
-npm start
+npm run dev
 ~~~
 
 <span id="atividades3">
@@ -176,11 +158,6 @@ npm start
 
 ## :pushpin: Sobre o desafio
   O objetivo é construir a mesma GUI, feita anteriormente com componentes de classe, mas agora com componentes de função.
-<br>
-
-> 🔗 **Link** <br>
-> - Documento de apoio da atividade3: [Clique para visualizar](https://github.com/b4hia/PetLovers-PL/tree/main/documents/atviii-pl.pdf)
-
 <br>
 
 <span id="tec3">
@@ -198,13 +175,6 @@ npm start
 
 <span id="backlog3">
 
-## 🌱 Backlog do Produto *Atividade3*
-
- #### Épicos (Requisitos) 
-- [x] Substituir os componentes de função por componentes de classe
-- [x] Adaptar a GUI atual para o uso de Hooks.
-
-
 → [Voltar ao topo](#topo)
 
 <br>
@@ -216,7 +186,7 @@ npm start
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
 ~~~
-git clone https://github.com/b4hia/PetLovers-PL/atv3-pl.git 
+git clone https://github.com/thenewjapzzz/pet-lovers.git
 ~~~
     
 - entre no clone 
@@ -231,12 +201,12 @@ cd src
 
 - instale os pacotes
 ~~~
-npm i
+npm install
 ~~~
 
 - rode a aplicação
 ~~~
-npm start
+npm run dev
 ~~~
 
 <span id="atividades4">
@@ -313,12 +283,6 @@ cd atv4-pl
 
 ## :pushpin: Sobre o desafio
   O objetivo é entregar o sistema funcionando.
-<br>
-
-> 🔗 **Link** <br>
-> - Documento de apoio da atividade5: [Clique para visualizar](https://github.com/b4hia/PetLovers-PL/tree/main/documents/atvv-pl.pdf)
-
-<br>
 
 <span id="tec5">
 
@@ -345,7 +309,7 @@ cd atv4-pl
 - crie uma pasta, entre nela e abra o cmd
 - clone o repositório
 ~~~
-git clone https://github.com/b4hia/PetLovers-PL/atv5-pl.git 
+git clone https://github.com/thenewjapzzz/pet-lovers.git
 ~~~
     
 - entre no clone 
@@ -353,14 +317,19 @@ git clone https://github.com/b4hia/PetLovers-PL/atv5-pl.git
 cd atv5-pl
 ~~~
 
+- navegue até o backend
+~~~
+cd backend
+~~~
+
 - instale as dependências 
 ~~~
-npm i
+npm install
 ~~~
 
 - rode o backend
 ~~~
-npm run backend
+npm run dev
 ~~~
 
 - Abra outro terminal e repita os seguintes comandos:
@@ -368,17 +337,19 @@ npm run backend
 cd atv5-pl
 ~~~
 
-- rode o backend
+- navegue até o frontend
 ~~~
-cd front
+cd frontend
 ~~~
 
 - instale as dependências 
 ~~~
-npm i
+npm install
 ~~~
 
-- rode o react
+- rode o frontend
 ~~~
-npm start
+npm run dev
 ~~~
+
+
