@@ -86,10 +86,10 @@ const Menu = () => {
         <div className="flex items-center space-x-4">
           <li className="list-none">
             <Link
-              to="/edido"
+              to="/pedido"
               className={`text-black text-lg font-medium py-5 px-8 relative  ${
-                location.pathname === "/fazer-pedido"
-                  ? "after:w-3/4 after:h-0.5 after:bg-orange-400 after:mt-8 after:absolute after:left-1/2 after:transform after:-translate-x-1/2"
+                location.pathname === "/pedido"
+                  ? "text-orange-500"
                   : ""
               } transition-all`}
             >

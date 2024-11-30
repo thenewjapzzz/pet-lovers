@@ -26,7 +26,7 @@ export class Cliente {
   @Column({ type: "varchar", length: 20, unique: true })
   rg: string;
 
-  @Column({ type: "varchar", length: 11, unique: true })
+  @Column({ type: "varchar", length: 255, unique: true })
   cpf: string;
 
   @Column({ type: "timestamp" })

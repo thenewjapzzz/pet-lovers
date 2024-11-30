@@ -4,7 +4,7 @@ import { createClientController, deleteClientController, getAllClientController,
 import { createProductController, deleteProductController, getAllProductController, readProductController, updateProductController } from "./controllers/product-controller";
 import { createServiceController, deleteServiceController, getAllServiceController, readServiceController, updatedServiceController } from "./controllers/service-controller";
 import { createPetContoller, deletePetController, getAllPetsByClientController, readPetController, updatePetController } from "./controllers/pet-controller";
-import { createOrderController, getOrdersByEmpresaController } from "controllers/order-controller";
+import { createOrderController, getOrdersByEmpresaController } from "./controllers/order-controller";
 
 const router = Router();
 

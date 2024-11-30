@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { createOrderService, getOrdersByEmpresaService, getTopClientsService } from "services/order-service";
+import { createOrderService, getOrdersByEmpresaService, getTopClientsService } from "../services/order-service";
 
 export const createOrderController: RequestHandler = async (req, res): Promise<void> => {
     try {

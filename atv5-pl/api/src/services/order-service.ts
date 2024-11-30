@@ -100,8 +100,17 @@ export const getOrdersByEmpresaService = async (empresa_id: number) => {
         const orderRepository = AppDataSource.getRepository(Pedido);
 
         const orders = await orderRepository.find({
-            where: { empresa: { id: empresa_id } }, 
+            where: { empresa: { id: empresa_id } },
             relations: ["cliente", "empresa"],
+            select: [
+                "id",
+                "tipo",       
+                "quantidade",  
+                "preco",
+                "total",
+                "created_at",
+                "empresa_id"
+            ]
         });
 
         return orders;
@@ -114,7 +123,7 @@ export const getOrdersByEmpresaService = async (empresa_id: number) => {
 // Função para listar clientes com mais produtos/serviços consumidos, por valor e quantidade
 export const getTopClientsService = async () => {
     try {
-        const orderItemRepository = AppDataSource.getRepository(ItensPedido);
+        const orderItemRepository = AppDataSource.getRepository(Pedido);
 
         // Função para listar clientes por quantidade
         const topClientsByQuantity = await orderItemRepository

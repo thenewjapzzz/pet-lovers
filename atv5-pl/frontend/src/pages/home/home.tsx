@@ -1,7 +1,22 @@
 import React, { useState } from "react";
 import Menu from "../../components/menu/menu";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
+
+  const navigateToService = () => {
+    navigate('/servicos')
+  }
+
+  const navigateBathAndGrooming = () => {
+    navigate('/pedido')
+  }
+
+  const navigateToProduct = () => {
+    navigate('/produtos')
+  }
+
   const [testimonials] = useState([
     {
       id: 1,
@@ -38,7 +53,7 @@ const Home = () => {
                 incondicional, <br className="hidden sm:block" />pois sabemos o quanto eles significam para você e
                 queremos que se sintam em casa!
               </p>
-              <button className="bg-orange-500 text-black py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200">
+              <button className="bg-orange-500 text-black py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200" onClick={navigateToService}>
                 Conheça mais sobre nossos serviços!
               </button>
             </div>
@@ -67,7 +82,7 @@ const Home = () => {
                 nosso petshop, oferecemos um serviço de banho e tosa completo e
                 personalizado, que atende às necessidades de cada animal.
               </p>
-              <button className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200">
+              <button className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200" onClick={navigateBathAndGrooming}>
                 Clique aqui e agende o banho e tosa do seu pet!
               </button>
             </div>
@@ -84,7 +99,7 @@ const Home = () => {
                 dedicação, nossa equipe de profissionais capacitados se preocupa
                 com a saúde e bem-estar do seu animal.
               </p>
-              <button className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200">
+              <button className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200" onClick={navigateToService}>
                 Agende já uma consulta e conheça nossos serviços
               </button>
             </div>
@@ -101,7 +116,7 @@ const Home = () => {
                 trabalhamos apenas com as melhores marcas do mercado, garantindo
                 a qualidade e a segurança dos produtos oferecidos.
               </p>
-              <button className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200">
+              <button className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition duration-200" onClick={navigateToProduct}>
                 Clique aqui e conheça nossos produtos disponíveis.
               </button>
             </div>
