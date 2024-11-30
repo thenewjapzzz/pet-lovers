@@ -1,12 +1,11 @@
 import express, { Request, Response } from 'express';
-import cors from 'cors'; // Importe o CORS
+import cors from 'cors'; 
 import { AppDataSource } from './config/data-source';
 import router from './routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configure o CORS explicitamente
 app.use(
   cors({
     origin: "http://localhost:5173", 
