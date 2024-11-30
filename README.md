@@ -78,7 +78,7 @@ node out/app/main.js
 
 <span id="atividades2">
   
-## Parte2 *Sistema com GUI* 2️⃣
+## Parte2 *Sistema com Interface* 2️⃣
   
 <p>
     <a href="#tec2">Tecnologia</a> | 
@@ -86,9 +86,9 @@ node out/app/main.js
 </p>
 
 ## :pushpin: Sobre o desafio
-  O sistema desenvolvido para o grupo C4P foi um sucesso, várias franquias de lojas especializadas em produtos para o mercado pet adotaram o sistema. Mas, há uma questão ainda não resolvida, o sistema não tem uma GUI - Graphical User Interface.
- Por isso, o objetivo é atualizar o sistema com uma GUI moderna e que funcione tanto em navegadores comuns quanto em navegadores de dispositivos móveis.
-  
+ O sistema desenvolvido pela C4P foi um grande sucesso, sendo adotado por diversas franquias especializadas no mercado pet. No entanto, ainda há um ponto pendente: o sistema não possui uma GUI (Graphical User Interface).
+
+Diante disso, o próximo objetivo é modernizar o sistema, implementando uma interface gráfica intuitiva e responsiva, capaz de funcionar perfeitamente tanto em navegadores convencionais quanto em dispositivos móveis, oferecendo uma experiência aprimorada para os usuários.
 <br>
 
 <span id="tec2">
@@ -149,7 +149,7 @@ npm run dev
 </p>
 
 ## :pushpin: Sobre o desafio
-  O objetivo é construir a mesma GUI, feita anteriormente com componentes de classe, mas agora com componentes de função.
+ O objetivo agora é recriar a GUI já desenvolvida, substituindo os componentes de classe por componentes funcionais, mantendo a mesma funcionalidade, mas aproveitando as vantagens das tecnologias mais modernas.
 <br>
 
 <span id="tec3">
@@ -210,8 +210,8 @@ npm run dev
 </p>
 
 ## :pushpin: Sobre o desafio
-  O objetivo é construir uma aplicação front-end que consiga se comunicar com a aplicação back-end, todas as funções do CRUD devem estar disponíveis para que um cliente comum consiga realizar, porém utilizando a GUI desenvolvida anteriormente.
-  > OBS: o back-end disponibilizado está em JAVA, mas, opicionalmente, ele pode ser desenvolvido em outra linguagem se assim o desenvolvedor preferir.
+ 
+O objetivo é desenvolver uma aplicação front-end que se integre perfeitamente com o back-end, permitindo que todas as operações do CRUD estejam disponíveis para uso por um cliente comum. A interface gráfica utilizada será a mesma já desenvolvida anteriormente.
 <br>
 
 > 🔗 **Link** <br>
