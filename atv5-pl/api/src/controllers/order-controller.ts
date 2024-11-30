@@ -54,15 +54,23 @@ export const getOrdersByEmpresaController: RequestHandler = async (req, res): Pr
 
 export const getTopClientsController: RequestHandler = async (req, res): Promise<void> => {
     try {
-        const result = getTopClientsService()
+        // Extract empresa_id from query parameters
+        const { empresa_id } = req.query;
 
-        if (!result) {
-            res.status(500).json({ message: "Error to fetch top clients" })
+        if (!empresa_id) {
+            res.status(400).json({ message: 'empresa_id is required' });
         }
 
-        res.status(201).json({ message: "Top clients fetch successfully", data: result })
-    }catch (error) {
-        console.log("Error in getTopClientsController", error)
-        res.status(500).json({ message: "Internal Server Error" })
+        const result = await getTopClientsService(Number(empresa_id));
+
+        if (!result) {
+            res.status(500).json({ message: "Error to fetch top clients" });
+        }
+
+        // Return success response
+        res.status(200).json({ message: "Top clients fetched successfully", data: result });
+    } catch (error) {
+        console.log("Error in getTopClientsController", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-}
+};

@@ -121,39 +121,40 @@ export const getOrdersByEmpresaService = async (empresa_id: number) => {
 };
 
 // Função para listar clientes com mais produtos/serviços consumidos, por valor e quantidade
-export const getTopClientsService = async () => {
+export const getTopClientsService = async (empresa_id: number) => {
     try {
         const orderItemRepository = AppDataSource.getRepository(Pedido);
 
         // Função para listar clientes por quantidade
         const topClientsByQuantity = await orderItemRepository
-        .createQueryBuilder("item")
-        .innerJoin(Pedido, "pedido", "item.pedido_id = pedido.id")
-        .innerJoin(Cliente, "cliente", "pedido.cliente_id = cliente.id")
-        .select("cliente.nome", "cliente_nome")
-        .addSelect("cliente.cpf", "cliente_cpf")
-        .addSelect("SUM(item.quantidade)", "total_quantity")
-        .groupBy("cliente.nome, cliente.cpf")
-        .orderBy("total_quantity", "DESC")
-        .getRawMany();
+            .createQueryBuilder("pedido") 
+            .innerJoin("pedido.cliente", "cliente") 
+            .where("pedido.empresa_id = :empresa_id", { empresa_id })
+            .select("cliente.nome", "cliente_nome")
+            .addSelect("cliente.cpf", "cliente_cpf")
+            .addSelect("SUM(pedido.quantidade)", "total_quantity")
+            .groupBy("cliente.nome, cliente.cpf")
+            .orderBy("total_quantity", "DESC")
+            .getRawMany();
 
         // Função para listar clientes por valor
         const topClientsByValue = await orderItemRepository
-        .createQueryBuilder("item")
-        .innerJoin(Pedido, "pedido", "item.pedido_id = pedido.id")
-        .innerJoin(Cliente, "cliente", "pedido.cliente_id = cliente.id")
-        .select("cliente.nome", "cliente_nome")
-        .addSelect("cliente.cpf", "cliente_cpf")
-        .addSelect("SUM(item.quantidade * item.preco)", "total_value")
-        .groupBy("cliente.nome, cliente.cpf")
-        .orderBy("total_value", "DESC")
-        .getRawMany();
+            .createQueryBuilder("pedido")
+            .innerJoin("pedido.cliente", "cliente") 
+            .where("pedido.empresa_id = :empresa_id", { empresa_id })
+            .select("cliente.nome", "cliente_nome")
+            .addSelect("cliente.cpf", "cliente_cpf")
+            .addSelect("SUM(pedido.quantidade * pedido.preco)", "total_value")
+            .groupBy("cliente.nome, cliente.cpf")
+            .orderBy("total_value", "DESC")
+            .getRawMany();
 
         return {
             topClientsByQuantity,
             topClientsByValue
-        }
-    }catch (error) {
-        console.log("Error fetching top clients", error)
+        };
+    } catch (error) {
+        console.log("Error fetching top clients", error);
+        throw new Error("Error fetching top clients");
     }
 }
